@@ -30,10 +30,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -65,6 +61,9 @@
       "targets": [
         {
           "expr": "crystal_ball_executed_jobs",
+          "format": "table",
+          "hide": false,
+          "instant": true,
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -81,7 +80,72 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
+          "displayName": "Queue Size",
           "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 5,
+        "y": 0
+      },
+      "id": 16,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.7",
+      "targets": [
+        {
+          "expr": "crystal_ball_queue_size",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Queue Size",
+      "type": "gauge"
+    },
+    {
+      "datasource": "prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "displayName": "Request Per Hour",
+          "mappings": [],
+          "max": 5,
+          "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -94,22 +158,19 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 5,
         "w": 5,
-        "x": 6,
+        "x": 10,
         "y": 0
       },
-      "id": 16,
+      "id": 20,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "mean"
@@ -117,12 +178,15 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
       "pluginVersion": "7.3.7",
       "targets": [
         {
-          "expr": "crystal_ball_queue_size",
+          "expr": "rate(crystal_ball_executed_jobs[1h])",
+          "format": "table",
+          "instant": true,
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -131,8 +195,8 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Queue Size",
-      "type": "stat"
+      "title": "Request Executed Per hour",
+      "type": "gauge"
     },
     {
       "datasource": "prometheus",
@@ -158,8 +222,8 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 5,
-        "x": 12,
+        "w": 4,
+        "x": 15,
         "y": 0
       },
       "id": 14,
@@ -181,6 +245,7 @@
       "targets": [
         {
           "expr": "crystal_ball_failed_jobs",
+          "instant": true,
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -217,7 +282,7 @@
       "gridPos": {
         "h": 5,
         "w": 5,
-        "x": 18,
+        "x": 19,
         "y": 0
       },
       "id": 18,
@@ -239,6 +304,7 @@
       "targets": [
         {
           "expr": "crystal_ball_balance",
+          "instant": true,
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -834,12 +900,12 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Orakuru Monitoring",
   "uid": "55uhzb3Gk",
-  "version": 17
+  "version": 32
 }
